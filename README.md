@@ -242,29 +242,14 @@ Default: `input → 512 → 256 → 128 → num_classes`
 ## Directory Structure
 
 ```
-feature_extraction_bert/
+knowledge_distillation_sentiment_classification/
 ├── pipeline.ipynb
 ├── single_teacher_pipeline.ipynb
 ├── analyze_max_length.py
 ├── grid_search_config.json
 ├── distillation_config.json
 ├── dataset/
-│   └── multiclass_sentiments.jsonl
 ├── distillation_metrics/
-│   ├── BERT_distillation_history.csv
-│   ├── DistilBERT_distillation_history.csv
-│   └── RoBERTa_distillation_history.csv
-├── training_metrics/
-│   ├── BERT_training_history.csv
-│   ├── DistilBERT_training_history.csv
-│   └── RoBERTa_training_history.csv
-├── pipeline_metrics/
-├── old/
-│   └── (previous versions and experiments)
-└── results/
-    ├── feature_distillation_results.csv
-    ├── grid_search_best_results.csv
-    └── (other result files)
 ```
 
 ## Publication & Citation
