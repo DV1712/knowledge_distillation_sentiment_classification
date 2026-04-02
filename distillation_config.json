@@ -1,0 +1,89 @@
+{
+  "description": "Grid search configuration for multi-teacher feature extraction and classification",
+  "seed": 42,
+  "dataset": {
+    "general_sentiment_analysis_dataset": {
+      "dataset_file_name": "dataset/multiclass_sentiments.jsonl",
+      "test_size": 0.2,
+      "val_split": 0.5
+    }
+  },
+  "models": [
+    {
+      "name": "BERT",
+      "model_id": "bert-base-uncased"
+    },
+    {
+      "name": "RoBERTa",
+      "model_id": "roberta-base"
+    },
+    {
+      "name": "DistilBERT",
+      "model_id": "distilbert-base-uncased"
+    }
+  ],
+  "feature_extraction": {
+    "batch_size": 64,
+    "max_length": 256
+  },
+  "model_config":{
+    "BERT":{
+      "epochs_options": [200],
+      "batch_size_options": [128],
+      "hidden_dims_options": [[512, 256, 128]],
+      "dropout_options": [0.1],
+      "lr_options": [0.0003],
+      "n_splits": 5,
+      "patience": 10,
+      "show_epoch_progress": true
+    },
+    "RoBERTa":{
+      "epochs_options": [200],
+      "batch_size_options": [64],
+      "hidden_dims_options": [[512,256,128]],
+      "dropout_options": [0.1],
+      "lr_options": [0.0003],
+      "n_splits": 5,
+      "patience": 10,
+      "show_epoch_progress": true
+    },
+    "DistilBERT":{
+      "epochs_options": [200],
+      "batch_size_options": [128],
+      "hidden_dims_options": [[512, 256, 128]],
+      "dropout_options": [0.1],
+      "lr_options": [0.0003],
+      "n_splits": 5,
+      "patience": 10,
+      "show_epoch_progress": true
+    }
+  },
+  "training": {
+    "min_delta": 0.0,
+    "gradient_clip_norm": 1.0,
+    "optimizer": "Adam"
+  },
+  "evaluation": {
+    "latency_batch_size": 256
+  },
+  "distillation": {
+    "enabled": true,
+    "alpha": 0.5,
+    "temperature": 1.0,
+    "student_config": {
+      "hidden_dims": [256, 128, 64],
+      "dropout": 0.3,
+      "learning_rate": 0.0003,
+      "batch_size": 64,
+      "epochs": 200,
+      "patience": 10
+    },
+    "output_dir": "distillation_metrics"
+  },
+  "output": {
+    "pipeline_metrics_dir": "pipeline_metrics",
+    "results_csv": "multi_teacher_classification_results.csv",
+    "grid_results_csv": "grid_search_all_configs.csv",
+    "grid_search_best_results_csv": "grid_search_best_configs.csv"
+  }
+}
