@@ -3,7 +3,8 @@
   "seed": 42,
   "dataset": {
     "general_sentiment_analysis_dataset": {
-      "dataset_file_name": "dataset/multiclass_sentiments.jsonl",
+      "dataset_file_name_old": "dataset/multiclass_sentiments.jsonl",
+      "dataset_file_name": "dataset/sentiment_data_abdel.csv",
       "test_size": 0.2,
       "val_split": 0.5
     }
@@ -20,29 +21,45 @@
     {
       "name": "DistilBERT",
       "model_id": "distilbert-base-uncased"
+    },
+    {
+      "name": "MobileBERT",
+      "model_id": "google/mobilebert-uncased"
+    },
+    {
+      "name": "T5",
+      "model_id": "t5-small"
+    },
+    {
+      "name": "ModernBERT",
+      "model_id": "google/bert_uncased_L-4_H-512_A-8"
+    },
+    {
+      "name": "EttinDecoder",
+      "model_id": "microsoft/ettin-decoder-1.5b"
     }
   ],
   "feature_extraction": {
-    "batch_size": 64,
+    "batch_size": 256,
     "max_length": 256
   },
   "model_config":{
     "BERT":{
       "epochs_options": [200],
       "batch_size_options": [128],
-      "hidden_dims_options": [[512, 256, 128]],
+      "hidden_dims_options": [[512, 256, 128, 64]],
       "dropout_options": [0.1],
-      "lr_options": [0.0003],
+      "lr_options": [0.00005],
       "n_splits": 5,
       "patience": 10,
       "show_epoch_progress": true
     },
     "RoBERTa":{
       "epochs_options": [200],
-      "batch_size_options": [64],
-      "hidden_dims_options": [[512,256,128]],
+      "batch_size_options": [128],
+      "hidden_dims_options": [[512,256,128, 64]],
       "dropout_options": [0.1],
-      "lr_options": [0.0003],
+      "lr_options": [0.00005],
       "n_splits": 5,
       "patience": 10,
       "show_epoch_progress": true
@@ -50,9 +67,59 @@
     "DistilBERT":{
       "epochs_options": [200],
       "batch_size_options": [128],
-      "hidden_dims_options": [[512, 256, 128]],
-      "dropout_options": [0.1],
+      "hidden_dims_options": [[512, 256, 128, 64]],
+      "dropout_options": [0.05],
       "lr_options": [0.0003],
+      "n_splits": 5,
+      "patience": 10,
+      "show_epoch_progress": true
+    },
+    "GPT-2":{
+      "epochs_options": [200],
+      "batch_size_options": [128],
+      "hidden_dims_options": [[512, 256, 128, 64]],
+      "dropout_options": [0.1],
+      "lr_options": [0.00005],
+      "n_splits": 5,
+      "patience": 10,
+      "show_epoch_progress": true
+    },
+    "T5":{
+      "epochs_options": [200],
+      "batch_size_options": [128],
+      "hidden_dims_options": [[512, 256, 128, 64]],
+      "dropout_options": [0.1],
+      "lr_options": [0.00005],
+      "n_splits": 5,
+      "patience": 10,
+      "show_epoch_progress": true
+    },
+    "ModernBERT":{
+      "epochs_options": [200],
+      "batch_size_options": [128],
+      "hidden_dims_options": [[512, 256, 128, 64]],
+      "dropout_options": [0.1],
+      "lr_options": [0.00005],
+      "n_splits": 5,
+      "patience": 10,
+      "show_epoch_progress": true
+    },
+    "EttinDecoder":{
+      "epochs_options": [200],
+      "batch_size_options": [128],
+      "hidden_dims_options": [[512, 256, 128, 64]],
+      "dropout_options": [0.1],
+      "lr_options": [0.00005],
+      "n_splits": 5,
+      "patience": 10,
+      "show_epoch_progress": true
+    },
+    "MobileBERT":{
+      "epochs_options": [200],
+      "batch_size_options": [128],
+      "hidden_dims_options": [[512, 256, 128, 64]],
+      "dropout_options": [0.1],
+      "lr_options": [0.00005],
       "n_splits": 5,
       "patience": 10,
       "show_epoch_progress": true
@@ -69,19 +136,37 @@
   "distillation": {
     "enabled": true,
     "alpha": 0.5,
-    "temperature": 1.0,
+    "temperature": 2.5,
     "student_config": {
-      "hidden_dims": [256, 128, 64],
-      "dropout": 0.3,
+      "hidden_dims": [16, 8, 4],
+      "dropout": 0.1,
       "learning_rate": 0.0003,
-      "batch_size": 64,
+      "batch_size": 128,
       "epochs": 200,
       "patience": 10
     },
-    "output_dir": "distillation_metrics"
+    "output_dir": "distillation_metrics",
+    "multi_teacher_output_dir": "multi_teacher_distillation_metrics"
+  },
+  "distillation-multi-teacher": {
+    "enabled": true,
+    "alpha": 0.5,
+    "temperature": 2.5,
+    "student_config": {
+      "hidden_dims": [16, 8, 4],
+      "dropout": 0.1,
+      "learning_rate": 0.0003,
+      "batch_size": 128,
+      "epochs": 200,
+      "patience": 10
+    },
+    "output_dir": "distillation_metrics",
+    "multi_teacher_output_dir": "multi_teacher_distillation_metrics"
   },
   "output": {
     "pipeline_metrics_dir": "pipeline_metrics",
+    "multi_teacher_output_dir": "multi_teacher_distillation_metrics",
+    "multi_teacher_plots_dir": "multi_teacher_plots",
     "results_csv": "multi_teacher_classification_results.csv",
     "grid_results_csv": "grid_search_all_configs.csv",
     "grid_search_best_results_csv": "grid_search_best_configs.csv"

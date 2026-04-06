@@ -43,6 +43,10 @@ training_metrics/
 distillation_metrics/
 dataset/
 extras/
+models/
+multi_teacher_distillation_metrics/
+multi-teacher-models/
+
 
 # Root directory images
 *.png
@@ -50,3 +54,4 @@ extras/
 *.pbix
 *.csv
 *.pdf
+*.pt

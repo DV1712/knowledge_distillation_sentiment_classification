@@ -121,9 +121,6 @@
       "patience": 10,
       "show_epoch_progress": true
     }
-
-
-
   },
   "training": {
     "min_delta": 0.0,
