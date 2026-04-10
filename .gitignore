@@ -46,6 +46,7 @@ extras/
 models/
 multi_teacher_distillation_metrics/
 multi-teacher-models/
+ppt/
 
 
 # Root directory images

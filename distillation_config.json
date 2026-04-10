@@ -15,12 +15,24 @@
       "model_id": "bert-base-uncased"
     },
     {
-      "name": "RoBERTa",
+      "name": "RoBERTa_old",
       "model_id": "roberta-base"
     },
     {
-      "name": "DistilBERT",
+      "name": "RoBERTa",
+      "model_id": "cardiffnlp/twitter-roberta-base-sentiment-latest"
+    },
+    {
+      "name": "DistilBERT_old",
       "model_id": "distilbert-base-uncased"
+    },
+    {
+      "name": "DistilBERT",
+      "model_id": "distilbert-base-uncased-finetuned-sst-2-english"
+    },
+    {
+      "name": "GPT-2",
+      "model_id": "gpt2"
     },
     {
       "name": "MobileBERT",
@@ -64,6 +76,7 @@
       "patience": 10,
       "show_epoch_progress": true
     },
+    
     "DistilBERT":{
       "epochs_options": [200],
       "batch_size_options": [128],
@@ -73,6 +86,15 @@
       "n_splits": 5,
       "patience": 10,
       "show_epoch_progress": true
+    },
+    "DistilBERT_new": {
+      "epochs_options": [200],
+      "batch_size_options": [128],
+      "hidden_dims_options": [[256, 64]],
+      "dropout_options": [0.3],
+      "lr_options": [0.001],
+      "n_splits": 5,
+      "patience": 10
     },
     "GPT-2":{
       "epochs_options": [200],
@@ -153,9 +175,9 @@
     "alpha": 0.5,
     "temperature": 2.5,
     "student_config": {
-      "hidden_dims": [16, 8, 4],
+      "hidden_dims": [16, 8],
       "dropout": 0.1,
-      "learning_rate": 0.0003,
+      "learning_rate": 0.003,
       "batch_size": 128,
       "epochs": 200,
       "patience": 10
